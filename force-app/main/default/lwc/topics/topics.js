@@ -2,7 +2,7 @@ import { LightningElement, track } from 'lwc';
 
 import { createRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import TOPIC from '@salesforce/schema/Category__c';
+import TOPIC_OBJECT from '@salesforce/schema/Category__c';
 import TOPIC_FIELD from '@salesforce/schema/Category__c.Category__c';
 import DESCRIPTION_FIELD from '@salesforce/schema/Category__c.Description__c';
 
@@ -24,5 +24,44 @@ export default class Topics extends LightningElement {
 
     handleDescriptionChange(event) {
         this.description = event.target.value;
+    }
+
+    createTopicRecord() {
+        //Validation
+        // let topicInput = this.template.querySelector(".topic");
+        // if (!this.topic) {
+        //     topicInput.setCustomValidity("Topic Name value is required");
+        //     return;
+        // } else {
+        //     topicInput.setCustomValidity(""); // clear previous value
+        // }
+
+        const fields = {};
+        fields[TOPIC_FIELD.fieldApiName] = this.topic;
+        fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
+        const recordInput = { apiName: TOPIC_OBJECT.objectApiName, fields };
+        createRecord(recordInput)
+            .then(topic => {
+                // Clear New Topic Creation form
+                this.topic = '';
+                this.description = '';
+                this.closeModal();
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'New topic has been successfully created',
+                        variant: 'success',
+                    }),
+                );
+            })
+            .catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error creating new topic',
+                        message: error.body.message,
+                        variant: 'error',
+                    }),
+                );
+            });
     }
 }

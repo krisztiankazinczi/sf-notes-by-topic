@@ -1,5 +1,5 @@
 <template>
-    <lightning-card  title="Topics">
+    <lightning-card title="Topics">
         <lightning-button label="Create Topic" slot="actions" onclick={showModal}></lightning-button>
         <p class="slds-p-horizontal_small">Card Body (custom component)</p>
     </lightning-card>
@@ -14,19 +14,19 @@
                 <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"  
                     variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
                 </lightning-button-icon>  
-                <h1>Create New Topic</h1>  
+                <h1 class="slds-text-heading_large">Create New Topic</h1>  
             </div>  
             <!------Body Section-->  
             <div class="slds-modal__content">  
                 <div class="slds-m-around_medium">
                     <lightning-input label="Topic Name" onchange={handleTopicChange} class="slds-m-bottom_x-small"></lightning-input>
-                    <lightning-textarea name="description" label="Description" onchange={handleDescriptionChange}></lightning-textarea>
+                    <lightning-textarea name="description" rows="6" label="Description" onchange={handleDescriptionChange}></lightning-textarea>
                     <div class="slds-grid slds-grid_align-spread slds-m-top_medium">
                         <div class="slds-col">
-                          <lightning-button label="Cancel" variant="destructive"></lightning-button>
+                          <lightning-button class="topic" label="Cancel" variant="destructive" onclick={closeModal}></lightning-button>
                         </div>
                         <div class="slds-col">
-                            <lightning-button label="Create Topic" variant="brand"></lightning-button>
+                            <lightning-button label="Create Topic" variant="brand" onclick={createTopicRecord}></lightning-button>
                         </div>
                       </div>
                     <div>
