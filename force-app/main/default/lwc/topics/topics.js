@@ -28,13 +28,16 @@ export default class Topics extends LightningElement {
 
     createTopicRecord() {
         //Validation
-        // let topicInput = this.template.querySelector(".topic");
-        // if (!this.topic) {
-        //     topicInput.setCustomValidity("Topic Name value is required");
-        //     return;
-        // } else {
-        //     topicInput.setCustomValidity(""); // clear previous value
-        // }
+        let topicInputContainer = this.template.querySelector(".topic-container");
+        const topicErrorMessage = this.template.querySelector(".topic-error-msg");
+        if (!this.topic) {
+            topicInputContainer.classList.add("slds-has-error");
+            topicErrorMessage.innerText = 'Topic Name value is required';
+            return;
+        } else {
+            topicInputContainer.classList.remove("slds-has-error");
+            topicErrorMessage.innerText = '';
+        }
 
         const fields = {};
         fields[TOPIC_FIELD.fieldApiName] = this.topic;

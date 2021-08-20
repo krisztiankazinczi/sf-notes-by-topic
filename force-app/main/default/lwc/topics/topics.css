@@ -1,0 +1,11 @@
+.topic-error-msg {
+    color: red;
+    font-size: 11px;
+    margin-top: -3px;
+    padding-top: 0;
+}
+
+/* Styling hooks in documentation!!!! */
+:host {
+    --sds-c-textarea-sizing-min-height: 200px;
+ }
